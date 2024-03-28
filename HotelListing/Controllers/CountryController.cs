@@ -30,22 +30,20 @@ namespace HotelListing.Controllers
         }
 
         [HttpGet]
+        // Can be used to override global caching on a particular endpoint at any point. 
+        ////[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 60)]
+        ////[HttpCacheValidation(MustRevalidate = false)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetCountries()
+        public async Task<IActionResult> GetCountries([FromQuery] RequestParams requestParams)
         {
-            try
-            {
-                var countries = await _unitOfWork.Countries.GetAll();
-                var results = _mapper.Map<IList<CountryDTO>>(countries);
-                return Ok(results);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Something Went Wrong in the {nameof(GetCountries)}");
-                return StatusCode(500, "Internal Server Error. Please Try Again Later.");
-            }
+            var countries = await _unitOfWork.Countries.GetPagedList(requestParams);
+            var results = _mapper.Map<IList<CountryDTO>>(countries);
+            return Ok(results);
         }
+
+
+
 
         [HttpGet("{id:int}", Name = "GetCountry")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -65,7 +63,7 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -93,7 +91,7 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -128,7 +126,7 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -65,7 +65,7 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -93,7 +93,7 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -128,7 +128,7 @@ namespace HotelListing.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

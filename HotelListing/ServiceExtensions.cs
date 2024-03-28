@@ -27,23 +27,23 @@ namespace HotelListing
             var jwtSettings = Configuration.GetSection("Jwt");
             var key = Environment.GetEnvironmentVariable("KEY");
 
-            services.AddAuthentication(o =>
-            {
-                o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(o =>
-            {
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.GetSection("Issuer").Value,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-                };
-            });
+            //services.AddAuthentication(o =>
+            //{
+            //    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddJwtBearer(o =>
+            //{
+            //    o.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = false,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
+            //        ValidIssuer = jwtSettings.GetSection("Issuer").Value,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+            //    };
+            //});
         }
     }
 }
